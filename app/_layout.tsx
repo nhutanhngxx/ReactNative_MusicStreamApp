@@ -17,13 +17,13 @@ const RootNavigation = () => {
   return (
     <Stack initialRouteName="launch">
       <Stack.Screen
-        name="(tabs)"
+        name="launch"
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="launch"
+        name="(tabs)"
         options={{
           headerShown: false,
         }}

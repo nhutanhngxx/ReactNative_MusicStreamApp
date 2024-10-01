@@ -6,7 +6,10 @@ import { ImageBackground, SafeAreaView, Text, View, TouchableOpacity, Image } fr
 import { Button, Input } from "react-native-elements";
 
 /**
- * Màn hình đăng nhập
+ * MÀN HÌNH ĐĂNG NHẬP dành cho người đã có tài khoản
+ * @param Email - tài khoản người dùng
+ * @param Password - mật khẩu người dùng
+ * @returns Đăng nhập thành công sẽ chuyển vào trang chủ
  */
 
 const LoginScreen = () => {
@@ -17,9 +20,9 @@ const LoginScreen = () => {
                 source={require("../../assets/LaunchScreen/PremiumBG.png")}
                 style={{width: '100%', height: '100%', position: 'absolute'}}
             />
-            <View style={{width: 310, paddingTop: 200 }}>
+            <View style={{width: 260, paddingTop: 200 }}>
                 <Text style={{fontSize: 50, color: 'white', fontWeight: 'bold', textAlign: 'center'}}>
-                    Sign up to Music Stream
+                    Login to Music Stream
                 </Text>
             </View>
 

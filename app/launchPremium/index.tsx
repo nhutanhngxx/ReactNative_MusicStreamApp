@@ -7,6 +7,7 @@ import { Button } from "react-native-elements";
 
 /**
  * Màn hình launch Premium
+ * @returns Chuyển sang trang chủ khi nhấn nút Start listening
  */
 
 const launchPremium = () => {

@@ -65,9 +65,9 @@ const SubscribePremium = () => {
 
         {/* Hiển thị giá và chức năng */}
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
-        <View style={{backgroundColor: '#F5F2FD', justifyContent: 'center', padding: 10, borderRadius: 18}}>
-            <Text style={{ color: '#A581E9', fontWeight: 'bold' }}>{item.free}</Text>
-        </View>
+            <View style={{backgroundColor: '#F5F2FD', justifyContent: 'center', padding: 10, borderRadius: 18}}>
+                <Text style={{ color: '#A581E9', fontWeight: 'bold' }}>{item.free}</Text>
+            </View>
             <Text style={{ fontWeight: 'bold' }}>{item.price}</Text>
         </View>
 
@@ -79,6 +79,15 @@ const SubscribePremium = () => {
         </View>
         ))}
 
+        {/* Nút Subscribe */}
+        <View style={{marginTop: 20}}>
+            <Button
+                title="Subscribe"
+                titleStyle={{fontWeight: 'bold', fontSize: 20, color: 'black'}}
+                buttonStyle={{backgroundColor: '#3BE477', width: '100%', height: 50, borderRadius: 25}}
+                onPress={() => router.push("(tabs)")}
+            />
+        </View>
     </View>
   );
     return (
