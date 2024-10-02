@@ -1,11 +1,12 @@
 import { colors, fontSize } from "@/constants/Colors";
 import { defaultStyles } from "@/styles";
 import { useRouter } from "expo-router";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { ImageBackground, SafeAreaView, Text, View, TouchableOpacity, Image } from "react-native";
 import { Button } from "react-native-elements";
 
 const loginScreen = () => {
+
     const router = useRouter();
     return (
         <View style={{flex: 1, justifyContent: 'space-between', alignItems: 'center', }}>

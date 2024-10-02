@@ -12,6 +12,7 @@ import { StyleSheet } from "react-native";
 const TabsNavigation = () => {
   return (
     <Tabs
+      initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: "cyan",
         tabBarInactiveTintColor: "gray",

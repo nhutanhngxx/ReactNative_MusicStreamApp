@@ -5,6 +5,9 @@ import { useReducer } from "react";
 import { ImageBackground, SafeAreaView, Text, View, TouchableOpacity, Image } from "react-native";
 import { Button, Input } from "react-native-elements";
 
+import Icon from "@expo/vector-icons";
+import AntDesign from '@expo/vector-icons/AntDesign';
+
 /**
  * Màn hình đăng ký
  */
@@ -47,13 +50,42 @@ const SignUp = () => {
             <View style={{justifyContent: 'center'}}>
                 <Text style={{textAlign: 'center', fontWeight: 'bold', color: 'white'}}>or</Text>
             </View>
-            <View style={{gap: 20}}>
+
+            <View style={{gap: 20, alignContent: 'center'}}>
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', width: '100%', height: 50,borderRadius: 25, borderColor: '#BFC4C1', borderWidth: 1, paddingLeft: 30, paddingRight: 30}}>
+                    <View>
+                        <AntDesign name="google" size={24} color="white" />
+                    </View>
+                    <View>
+                        <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 18}}>Sign up with Google</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', width: '100%', height: 50,borderRadius: 25, borderColor: '#BFC4C1', borderWidth: 1, paddingLeft: 30, paddingRight: 30}}>
+                    <View>
+                        <AntDesign name="facebook-square" size={24} color="white" />
+                    </View>
+                    <View>
+                        <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 18}}>Sign up with Facebook</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', width: '100%', height: 50,borderRadius: 25, borderColor: '#BFC4C1', borderWidth: 1, paddingLeft: 30, paddingRight: 30}}>
+                    <View>
+                        <AntDesign name="apple1" size={24} color="white" />
+                    </View>
+                    <View>
+                        <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 18}}>Sign up with Apple</Text>
+                    </View>
+                </TouchableOpacity>                                
+            </View>
+
+            {/* <View style={{gap: 20}}>
                 <Button
                     icon={{
                         name: 'google',
                         type: 'font-awesome',
                         color: 'white'
                     }}
+                    iconContainerStyle={{marginRight: 10}}
                     title={"Sign up with Google"}
                     titleStyle={{fontWeight: 'bold', fontSize: 20, color: 'white'}}
                     type="clear"
@@ -65,6 +97,7 @@ const SignUp = () => {
                         type: 'font-awesome',
                         color: 'white'
                     }}
+                    iconContainerStyle={{marginRight: 10}}
                     title={"Sign up with Facebook"}
                     titleStyle={{fontWeight: 'bold', fontSize: 20, color: 'white'}}
                     type="clear"
@@ -76,12 +109,14 @@ const SignUp = () => {
                         type: 'font-awesome',
                         color: 'white'
                     }}
+                    iconContainerStyle={{marginRight: 10}}
                     title={"Sign up with Apple"}
                     titleStyle={{fontWeight: 'bold', fontSize: 20, color: 'white'}}
                     buttonStyle={{width: '100%', height: 50, borderRadius: 25, borderColor: '#BFC4C1', borderWidth: 1}}
                     type="clear"
                 />
-            </View>
+            </View> */}
+
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Text style={{color: 'white' }}>Already have an account?</Text>
                 <TouchableOpacity

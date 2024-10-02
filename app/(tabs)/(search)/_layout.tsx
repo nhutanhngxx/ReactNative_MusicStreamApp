@@ -12,7 +12,6 @@ const SearchScreenLayout = () => {
           options={{
             ...StackScreenWithSeachBar,
             headerTitle: "Search",
-            // headerShown: false,
           }}
         />
       </Stack>

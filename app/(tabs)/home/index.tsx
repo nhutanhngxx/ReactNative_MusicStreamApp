@@ -1,11 +1,11 @@
 import { defaultStyles } from "@/styles";
 import { SafeAreaView, Text, View, FlatList, ScrollView } from "react-native";
 import { Image, TouchableOpacity } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { Button, Input, Tile } from "react-native-elements";
 
 import Icon from "@expo/vector-icons";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRoute } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 
 const dataSuggestions = [
   {
@@ -17,25 +17,26 @@ const dataSuggestions = [
     img: require("../../../assets/Home/suggestions2.png")
   }
 ]
-
 const dataCharts = [
   {
     id: 1,
+    name: "Top 50 Canada",
     title: "Daily chart - toppers update",
-    img: require("../../../assets/Home/Chart1.png")
+    imgPath: require("../../../assets/Home/Chart1.png")
   },
   {
     id: 2,
+    name: "Top 50 Global",
     title: "Daily chart - toppers update",
-    img: require("../../../assets/Home/Chart2.png")
+    imgPath: require("../../../assets/Home/Chart2.png")
   },
   {
     id: 3,
+    name: "Top 50 Trending",
     title: "Daily chart - toppers update",
-    img: require("../../../assets/Home/Chart3.png")
+    imgPath: require("../../../assets/Home/Chart3.png")
   }
 ]
-
 const dataAlbum = [
   {
     id: 1,
@@ -56,7 +57,6 @@ const dataAlbum = [
     img: require("../../../assets/Home/Album3.png")
   },
 ]
-
 const dataArtists = [
   {
     id: 1,
@@ -74,11 +74,8 @@ const dataArtists = [
     img: require("../../../assets/Home/Artists3.png")
   }
 ]
-
 const HomeScreen = () => {
-
-  const router = useRoute();
-
+  const router = useRouter();
   const renderSuggesstions = ({ item }) => (
     <View>
       <Image
@@ -87,17 +84,26 @@ const HomeScreen = () => {
       />
     </View>
   );
+  const handlePressChart = (id, name, title, imgPath) => {
+    console.log(id, title);
+    router.push({
+      pathname: '/home/detailsChart',
+      params: {id, title, name, imgPath},
+  })};
 
   const renderCharts = ({ item }) => (
-      <View>
+    <View> 
+      <TouchableOpacity onPress={() => handlePressChart(item.id, item.name, item.title, item.imgPath)}>
         <Image
-          source={item.img}
-          style={{width: 140, height: 140, borderRadius: 10, marginRight: 20}}
+          source={item.imgPath}
+          style={{ width: 140, height: 140, borderRadius: 10, marginRight: 20 }}
         />
-        <Text style={{fontSize: 17, marginTop: 5, width: 140, opacity: 0.5}}>{item.title}</Text>
-      </View>
+        <Text style={{ fontSize: 17, marginTop: 5, width: 140, opacity: 0.5 }}>
+          {item.title}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
-
   const renderAlbum = ({ item }) => (
       <View>
         <Image
@@ -108,7 +114,6 @@ const HomeScreen = () => {
         <Text style={{fontSize: 17, marginTop: 5, width: 140, opacity: 0.5}}>{item.singer}</Text>
       </View>
   );
-
   const renderArtists = ({ item }) => (
     <View style={{justifyContent: 'space-between', alignItems: 'center', marginRight: 20}}>
       <Image
@@ -123,7 +128,6 @@ const HomeScreen = () => {
       />
     </View>
   );
-
   return (
     <SafeAreaView style={{flex: 1, width: '90%', alignSelf: 'center'}}>
 
@@ -181,7 +185,7 @@ const HomeScreen = () => {
         {/* Charts */}
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10, paddingTop: 30}}>
-            <Text style={{fontSize: 25, fontWeight: 'bold'}}>Trending albums</Text>
+            <Text style={{fontSize: 25, fontWeight: 'bold'}}>Charts</Text>
             <TouchableOpacity>
               <Text style={{opacity: 0.5, fontWeight: 'bold'}}>
                 See all

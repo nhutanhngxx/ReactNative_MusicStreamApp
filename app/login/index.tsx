@@ -53,7 +53,7 @@ const LoginScreen = () => {
                         title={"Log in"}
                         titleStyle={{fontWeight: 'bold', fontSize: 20, color: 'black'}}
                         buttonStyle={{backgroundColor: '#3BE477', width: '100%', height: 50, borderRadius: 25}}
-                        onPress={() => router.push("(tabs)")}
+                        onPress={() => router.push("/(tabs)/home")}
                     />
                 </View>
 
