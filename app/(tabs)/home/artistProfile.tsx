@@ -8,19 +8,14 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {useRouter, useLocalSearchParams} from "expo-router";
 
-import dataTop50Canada from "../../../assets/data/top50canada.json";
+import {useRouter, useLocalSearchParams} from "expo-router";
 import { useState } from "react";
 
-// import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
-// import { PanGestureHandler } from 'react-native-gesture-handler';
-// import useAnimatedGestureHandler  from 'react-native-reanimated';
+import dataPopular from "../../../assets/data/popularList.json";
 
 const getImageSource = (imageName) => {
     switch (imageName) {
-        // let a = '../../../assets/DetailsChart/' + imageName + '.png';
-        // return require(a);
         case 'Flower':
             return require("../../../assets/DetailsChart/Flower.png");
         case 'ShapeOfYou':
@@ -35,34 +30,72 @@ const getImageSource = (imageName) => {
             return require("../../../assets/DetailsChart/Astronaut.png");
         case 'Dynamite':
             return require("../../../assets/DetailsChart/Dynamite.png");                                         
-        // // default:
+        // default:
         //     return require("../../../assets/DetailsChart/Flower.png");
     }
 };
-const DetailChart = () => {
+const dataAlbum = [
+  {
+    id: 1,
+    title: "ME",
+    artists: "Jessica Gonzalez",
+    img: require("../../../assets/Home/Album1.png")
+  },
+  {
+    id: 2,
+    title: "Magna nost",
+    artists: "Brian Thomas",
+    img: require("../../../assets/Home/Album2.png")
+  },
+  {
+    id: 3,
+    title: "Magna nost",
+    artists: "Christoper",
+    img: require("../../../assets/Home/Album3.png")
+  },
+]
+const dataFansAlsoLike = [
+    {
+        id: 1,
+        title: "Magna nost",
+        artists: "Jessica Gonzalez",
+        img: require("../../../assets/ArtistProfile/Image 74.png")
+    },
+    {
+        id: 2,
+        title: "Exercitatio",
+        artists: "Brian Harris",
+        img: require("../../../assets/ArtistProfile/Image 75.png")
+    },
+    {
+        id: 3,
+        title: "Tempor nost",
+        artists: "Tyler Gonzalez",
+        img: require("../../../assets/ArtistProfile/Image 76.png")
+    },
+]
+
+const ArtistProfile = () => {
+
+    const {id, singer, img} = useLocalSearchParams();
+    const router = useRouter();
+    const toggleFullScreen = () => {
+        setIsFullScreen(!isFullScreen);
+    };
     const [isPlaying, setIsPlaying] = useState(false);
     // Khai báo biến state để lưu bài hát hiện tại
     const [currentSong, setCurrentSong] = useState(null);
     // Khai báo trạng thái cho việc mở rộng modal
     const [isFullScreen, setIsFullScreen] = useState(true);
-    // Lấy dữ liệu từ URL
-    const {id, title, name, imgPath} = useLocalSearchParams();
-    // Khai báo biến state dùng để hiển thị modal
-    const [modalVisiblePlayMusic, setModalVisiblePlayMusic] = useState(false);
-    const router = useRouter();
-    // Khai báo biến state dùng để đổi màu icon Favourite
-    const [colorFavourite, setColorFavourite] = useState();
-    // Hàm để hiển thị modal và lưu bài hát hiện tại
+
     const handlePress = (item) => {
         setCurrentSong(item);
         setIsPlaying(true); // Bắt đầu chơi nhạc
         toggleFullScreen(); // Gọi lại hàm để mở rộng modal
     };
-    // Hàm để chuyển đổi giữa chế độ thanh ngang và toàn màn hình
-    const toggleFullScreen = () => {
-        setIsFullScreen(!isFullScreen);
-    };
-    const renderItem = ({item}) => (
+
+    const renderItem = ({item}) => {
+        return (
         <View style={{ flexDirection: 'row', padding: 15, alignItems: 'center', justifyContent: 'space-between'}}>
             <TouchableOpacity
                 style={{ flexDirection: 'row'}}
@@ -71,14 +104,12 @@ const DetailChart = () => {
                 <View>
                     <Image
                         source={getImageSource(item.img)}
-                        // source={require("../../../assets/DetailsChart/Flower.png")}
-                        // source={require(item.img)}
                         style={{ width: 65, height: 65, borderRadius: 5, marginRight: 10 }}
                     />
                 </View>
                 <View style={{gap: 5}}>
                     <Text style={{ fontSize: 20}}>{item.title}</Text>
-                    <Text style={{ fontSize: 15}}>{item.artist}</Text>
+                    <Text style={{ fontSize: 15}}>{singer}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5, justifyContent: 'space-between', width: 100}}>
                         <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                             <AntDesign name="hearto" size={12} color="black" />
@@ -92,52 +123,111 @@ const DetailChart = () => {
                 <Entypo name="dots-three-horizontal" size={20} color="black" />
             </View>
         </View>
+        );
+        
+    };
+
+    const render = ({ item }) => (
+        <TouchableOpacity>
+            <Image
+            source={item.img}
+            style={{width: 140, height: 140, borderRadius: 10, marginRight: 20}}
+            />
+            <Text style={{fontSize: 17, marginTop: 5, width: 140}}>{item.title}</Text>
+            <Text style={{fontSize: 17, marginTop: 5, width: 140, opacity: 0.5}}>{item.artists}</Text>
+        </TouchableOpacity>
     );
-    // Trả về giao diện
+
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-            <View style={{flexDirection: 'row', padding: 20, alignItems: 'center'}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: 'white', marginBottom: 100}}>
+            <View style={{alignItems: 'center', gap: 10, padding: 10}}>
                 <Image
-                    source={imgPath}
-                    style={{marginRight: 20}}
+                    source={img}
+                    style={{width: 150, height: 150}}
                 />
-                <View style={{gap: 5}}>
-                    <Text style={{fontSize: 25, fontWeight: 'bold'}}>{name}</Text>
-                    <View style={{flexDirection: 'row', gap: 20}}>
-                        <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
-                            <AntDesign name="hearto" size={12} color="black" />
-                            <Text>1,234</Text>
-                        </View>
-                        <View>
-                            <Text>05:10:18</Text>
-                        </View>
-                    </View>
-                    <Text style={{fontSize: 15}}>{title}</Text>
+                <Text style={{fontSize: 32, fontWeight: 'bold'}}>{singer}</Text>
+                <Text>65.1K Followers</Text>
+            </View>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 20}}>
+                <View style={{flexDirection: 'row', gap: 15, alignItems: 'center'}}>
+                    <Button
+                        title="Follow"
+                        titleStyle={{color: 'blue'}}
+                        buttonStyle={{backgroundColor: 0, borderWidth: 1, borderRadius: 20, height: 40, width: 100}}
+                    />
+                    <TouchableOpacity>
+                        <Entypo name="dots-three-horizontal" size={24} color="black" />
+                    </TouchableOpacity>
+                </View>
+                <View style={{flexDirection: 'row', gap: 15, alignItems: 'center'}}>
+                    <TouchableOpacity>
+                        <FontAwesome name="random" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <AntDesign name="play" size={50} color="black" />
+                    </TouchableOpacity>
                 </View>
             </View>
-
-            {/* Hiển thị nút chức năng như Yêu thích, Phát ngẫu nhiên, Phát từ đầu */}
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 15, alignItems: 'center', paddingTop: -10}}>
-                <View style={{flexDirection: 'row', gap: 20}}>              
-                    <TouchableOpacity><AntDesign name="hearto" size={20} color="black" /></TouchableOpacity>
-                    <TouchableOpacity><Entypo name="dots-three-horizontal" size={20} color="black" /></TouchableOpacity>
+            <ScrollView>
+                {/* Danh sách nhạc được nghe nhiều nhất */}
+                <View style={{ padding: 20, flex: 1 }}>
+                    <Text style={{fontSize: 25, fontWeight: 'bold', paddingBottom: 10}}>Popular</Text>
+                    <FlatList
+                        data={dataPopular}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id.toString()}
+                        showsVerticalScrollIndicator={false}
+                        // contentContainerStyle={{ paddingBottom: 50 }}
+                    />
+                        
                 </View>
-                <View style={{flexDirection: 'row', gap: 20, alignItems: 'center'}}>
-                    <TouchableOpacity><FontAwesome name="random" size={24} color="black" /></TouchableOpacity>
-                    <TouchableOpacity><AntDesign name="play" size={50} color="black" /></TouchableOpacity>
+                {/* Mục Albums */}
+                <View style={{ padding: 20, flex: 1 }}>
+                    <Text style={{fontSize: 25, fontWeight: 'bold', paddingBottom: 10}}>Albums</Text>
+                    <FlatList
+                        data={dataAlbum}
+                        renderItem={render}
+                        keyExtractor={(item) => item.id.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        contentContainerStyle={{ paddingBottom: 30}}
+                    />
                 </View>
-            </View>
-
-            {/* Hiển thị Flatlist */}
-            <View>
-                <FlatList
-                    data={dataTop50Canada}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id.toString()}
-                    showsVerticalScrollIndicator={false}
-                />
-            </View>
-
+                {/* About */}
+                <View style={{paddingLeft: 20, paddingRight: 20}}>
+                    <Text style={{fontSize: 25, fontWeight: 'bold', paddingBottom: 10}}>Popular</Text>
+                    <Image
+                        source={require("../../../assets/ArtistProfile/About.png")}
+                        style={{width: '100%', height: 200, borderRadius: 5}}
+                    />
+                    <Text style={{textAlign: 'justify', fontSize: 18, color: '#8F8686', paddingTop: 10}}>
+                        Do in cupidatat aute et in officia aute laboris est
+                        Lorem est nisi dolor consequat voluptate duis irure.
+                        Veniam quis amet irure cillum elit aliquip sunt cillum
+                        cillum do aliqua voluptate ad non magna elit.
+                        Do ea natur laborum ipsum mollit excepteur in tempor incididunt.
+                        Exercitation cillum sint aliqua qui do deserunt.
+                        Quis magna minim in cupidatat occaecat aute culpa nisi.
+                        Voluptate non esse qui in dolore id est sunt cillum veniam.
+                        Eu voluptate ex aliqua nostrud qui consequat anim.
+                        Excepteur eiusmod fugiat tempor exercitation reprehenderit irure magna labore officia.
+                        Ullamco cupidatat nisi sunt ut commodo deserunt est dolor sit aute incididunt occaecat.
+                        Laboris in enim aute anim fugiat non excepteur pariatur.
+                    </Text>
+                </View>
+                {/* Fans also like */}
+                <View style={{ padding: 20, flex: 1 }}>
+                    <Text style={{fontSize: 25, fontWeight: 'bold', paddingBottom: 10}}>Fans also like</Text>
+                    <FlatList
+                        data={dataFansAlsoLike}
+                        renderItem={render}
+                        keyExtractor={(item) => item.id.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        contentContainerStyle={{ paddingBottom: 30}}
+                    />
+                </View>
+            </ScrollView>
             {/* Thanh điều khiển nhạc nổi */}
             {isPlaying && currentSong && (
                 <View
@@ -200,8 +290,9 @@ const DetailChart = () => {
                     )}
                 </View>
             )}
+            
         </SafeAreaView>
     );
-};
+}
 
-export default DetailChart;
+export default ArtistProfile;

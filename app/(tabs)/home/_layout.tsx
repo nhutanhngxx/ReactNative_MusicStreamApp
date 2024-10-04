@@ -21,7 +21,23 @@ const HomeScreenLayout = () => {
             headerBackTitle: 'Back',
             headerStyle: {backgroundColor: 'transparent'},
           }}
-        />        
+        />
+        <Stack.Screen
+          name="detailsTrending"
+          options={{
+            headerTitle: '',
+            headerBackTitle: 'Back',
+            headerStyle: {backgroundColor: 'transparent'},
+          }}
+        />    
+        <Stack.Screen
+          name="artistProfile"
+          options={{
+            headerTitle: '',
+            headerBackTitle: 'Back',
+            headerStyle: {backgroundColor: 'transparent'},
+          }}
+        />
       </Stack>
     </View>
   );

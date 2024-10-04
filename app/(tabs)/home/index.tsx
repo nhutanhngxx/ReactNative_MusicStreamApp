@@ -1,6 +1,6 @@
 import { defaultStyles } from "@/styles";
 import { SafeAreaView, Text, View, FlatList, ScrollView } from "react-native";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, Modal } from "react-native";
 import { Button, Input, Tile } from "react-native-elements";
 
 import Icon from "@expo/vector-icons";
@@ -90,7 +90,16 @@ const HomeScreen = () => {
       pathname: '/home/detailsChart',
       params: {id, title, name, imgPath},
   })};
-
+  const handlePressTrending = () => {
+    
+  };
+  const handlePressArtist = (id, singer, img) => {
+    console.log(id, singer);
+    router.push({
+      pathname: '/home/artistProfile',
+      params: {id, singer, img},
+    })
+  };
   const renderCharts = ({ item }) => (
     <View> 
       <TouchableOpacity onPress={() => handlePressChart(item.id, item.name, item.title, item.imgPath)}>
@@ -105,21 +114,23 @@ const HomeScreen = () => {
     </View>
   );
   const renderAlbum = ({ item }) => (
-      <View>
+      <TouchableOpacity>
         <Image
           source={item.img}
           style={{width: 140, height: 140, borderRadius: 10, marginRight: 20}}
         />
         <Text style={{fontSize: 17, marginTop: 5, width: 140}}>{item.title}</Text>
         <Text style={{fontSize: 17, marginTop: 5, width: 140, opacity: 0.5}}>{item.singer}</Text>
-      </View>
+      </TouchableOpacity>
   );
   const renderArtists = ({ item }) => (
     <View style={{justifyContent: 'space-between', alignItems: 'center', marginRight: 20}}>
-      <Image
-        source={item.img}
-        style={{width: 140, height: 140, borderRadius: 10}}
-      />
+      <TouchableOpacity onPress={() => handlePressArtist(item.id, item.singer, item.img)}>
+        <Image
+          source={item.img}
+          style={{width: 140, height: 140, borderRadius: 10}}
+        />
+      </TouchableOpacity>
       <Text style={{fontSize: 17, marginTop: 10}}>{item.singer}</Text>
       <Button
         title={"Follow"}
@@ -130,16 +141,13 @@ const HomeScreen = () => {
   );
   return (
     <SafeAreaView style={{flex: 1, width: '90%', alignSelf: 'center'}}>
-
-      {/* Tiêu đều */}
+      {/* Tiêu đề */}
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', paddingTop: 10}}>
-        <TouchableOpacity>
-          <View>
+        <TouchableOpacity onPress={() => router.push("/premium")}>
             <Image
               source={require("../../../assets/Home/IconColor.png")}
               style={{width: 40, height: 40}}
             />
-          </View>
         </TouchableOpacity>
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 20}}>
           <TouchableOpacity>
@@ -151,13 +159,11 @@ const HomeScreen = () => {
           />
         </View>
       </View>
-
       {/* Good morning!! */}
       <View>
         <Text style={{fontSize: 20, marginTop: 40, color: '#767D88'}}>Good morning,</Text>
         <Text style={{fontSize: 40, fontWeight: 'bold', marginTop: 5}}>Ashley Scott</Text>
       </View>
-
       {/* Thanh tìm kiếm bài hát */}
       <View style={{paddingTop: 10, paddingBottom: 10}}>
         <Input
@@ -167,9 +173,8 @@ const HomeScreen = () => {
           inputContainerStyle={{borderWidth: 1, borderRadius: 25, height: 50, paddingLeft: 10, paddingRight: 10}}
         />
       </View>
-
+      {/* Phần nội dung sẽ được kéo */}
       <ScrollView showsVerticalScrollIndicator={false}>
-
         {/* Suggestions for you */}
         <View>
           <Text style={{fontSize: 25, fontWeight: 'bold', paddingBottom: 10}}>Suggestions for you</Text>
@@ -181,7 +186,6 @@ const HomeScreen = () => {
                 showsHorizontalScrollIndicator={false}
             />        
         </View>
-
         {/* Charts */}
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10, paddingTop: 30}}>
@@ -200,7 +204,6 @@ const HomeScreen = () => {
                 showsHorizontalScrollIndicator={false}
             />
         </View>
-
         {/* Trending albums */}
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10, paddingTop: 30}}>
@@ -219,7 +222,6 @@ const HomeScreen = () => {
               showsHorizontalScrollIndicator={false}
           />
         </View>
-
         {/* Popular artists */}
         <View style={{paddingBottom: 50}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10, paddingTop: 30}}>
@@ -239,7 +241,6 @@ const HomeScreen = () => {
           />
         </View>
       </ScrollView>
-
     </SafeAreaView>
   );
 };
